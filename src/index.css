@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --glass: rgba(255,255,255,0.04);
+  --glass-2: rgba(255,255,255,0.02);
+}
+
+html, body, #root {
+  height: 100%;
+  background: linear-gradient(180deg, #050816 0%, #0B1020 50%, #10182B 100%);
+  color: #e6eef8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.floating {
+  transform: translateZ(0);
+}
+
+/* Cursor helper */
+.cursor-dot { position: fixed; left:0; top:0; pointer-events:none; }
+
+/* Ripple on click */
+.cursor-ripple { position: fixed; border-radius: 9999px; pointer-events: none; transform: translate(-50%, -50%); mix-blend-mode: screen; }
+
+/* Hero */
+.hero { position: relative; height: 100vh; display:flex; align-items:center; justify-content:center; }
+.hero-inner { position: relative; z-index: 40; max-width: 1100px; padding: 40px; text-align: center; }
+.hero-title { font-size: clamp(2.2rem, 6vw, 4.2rem); line-height: 1; font-weight: 700; }
+.hero-sub { color: rgba(230,238,248,0.75); margin-top: 12px; }
+
+.cta-row { margin-top: 28px; display:flex; flex-wrap: wrap; gap:16px; justify-content:center; }
+.cta-button { position: relative; overflow: hidden; border-radius: 14px; padding: 14px 22px; font-weight: 600; cursor: pointer; border: 1px solid rgba(255,255,255,0.06); min-width: 160px; }
+.cta-primary { background: linear-gradient(90deg, rgba(79,140,255,0.16), rgba(108,99,255,0.1)); color: white; }
+.cta-ghost { background: rgba(255,255,255,0.04); color: rgba(230,238,248,0.95); }
+.cta-row.verifier-cta-row { justify-content: flex-start; }
+
+.section-label { display: inline-flex; text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.75rem; font-weight: 700; color: #4f8cff; margin-bottom: 1rem; }
+.section-heading { font-size: clamp(2rem, 3vw, 3rem); line-height: 1.05; font-weight: 700; margin-bottom: 1rem; }
+.section-copy { max-width: 44rem; color: rgba(230,238,248,0.82); margin-bottom: 1.5rem; font-size: 1rem; line-height: 1.75; }
+.verifier-list { display: grid; gap: 0.85rem; margin-bottom: 1.75rem; }
+.verifier-list li { list-style: none; position: relative; padding-left: 1.8rem; color: rgba(230,238,248,0.8); }
+.verifier-list li::before { content: '✓'; position: absolute; left: 0; top: 0.1rem; color: #7dd3fc; font-size: 0.95rem; }
+.verifier-panel { border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 28px 80px rgba(15,23,42,0.25); }
+.meter { width: 100%; }
+.meter-track { height: 10px; background: rgba(255,255,255,0.05); border-radius: 999px; overflow: hidden; }
+.meter-fill { height: 100%; background: linear-gradient(90deg, rgba(79,140,255,0.9), rgba(168,85,247,0.9)); border-radius: 999px; }
+
+.hero { position: relative; min-height: 85vh; display:flex; align-items:center; justify-content:center; padding: 20px 0; }
+.hero-inner { position: relative; z-index: 40; max-width: 1100px; padding: 34px 28px; text-align: center; }
+.hero-title { font-size: clamp(2.4rem, 7vw, 4.8rem); line-height: 1; font-weight: 700; }
+.cta-row { margin-top: 24px; display:flex; flex-wrap: wrap; gap: 14px; justify-content:center; }
+
+@media (max-width: 1024px) {
+  .hero-inner { padding: 28px 20px; }
+  .features { padding: 50px 0; }
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: auto; padding-top: 24px; padding-bottom: 24px; }
+  .hero-inner { width: 100%; padding: 22px 18px; }
+  .section-heading { font-size: 2.2rem; }
+  .verifier-panel { padding: 24px; }
+  .features .grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .cta-button { width: 100%; justify-content: center; }
+  .feature-card { min-height: 160px; }
+  .skill-verifier-section { padding-top: 24px; padding-bottom: 24px; }
+}
+
+.magnetic-inner { display:block; transform-origin: center; transition: transform 0.18s cubic-bezier(.2,.9,.2,1); }
+
+.scroll-indicator { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index:50; }
+.scroll-indicator .bar { width: 28px; height: 44px; border-radius: 20px; border:1px solid rgba(255,255,255,0.06); display:flex; align-items:flex-start; justify-content:center; padding:6px; }
+.scroll-indicator .dot { width:8px; height:8px; background: rgba(255,255,255,0.7); border-radius:50%; }
+
+/* Feature cards */
+.features { padding: 60px 0; z-index: 20; }
+.feature-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); padding: 20px; border-radius: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.feature-card .icon { width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, rgba(79,140,255,0.12), rgba(168,85,247,0.08)); }
+.feature-glow { box-shadow: 0 8px 30px rgba(108,99,255,0.12), inset 0 1px 0 rgba(255,255,255,0.02); border-radius: 20px; }
+
+.tilt { transform-style: preserve-3d; will-change: transform; }
+
+/* Custom cursor styles */
+.coworks-cursor { pointer-events: none }
+.cursor-ring {
+  position: absolute; width:44px; height:44px; border-radius:50%; border:1px solid rgba(108,99,255,0.22); box-shadow: 0 6px 20px rgba(108,99,255,0.08), 0 0 30px rgba(79,140,255,0.06); backdrop-filter: blur(6px); transform: translate(-50%, -50%); transition: transform 0.14s linear, width 0.12s linear, height 0.12s linear; will-change: transform,width,height; mix-blend-mode: screen; }
+.cursor-dot { position: absolute; width:14px; height:14px; border-radius:50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(255,255,255,0.2)); box-shadow: 0 6px 24px rgba(79,140,255,0.12); transform: translate(-50%, -50%); transition: transform 0.12s linear; will-change: transform; }
+.cursor-glow { position:absolute; width:72px; height:72px; border-radius:50%; filter: blur(18px); background: radial-gradient(circle at 50% 50%, rgba(79,140,255,0.12), rgba(168,85,247,0.02)); transform: translate(-50%, -50%); pointer-events:none }
+.cursor-particle { position:absolute; width:8px; height:8px; border-radius:50%; background: rgba(120,140,255,0.16); transform: translate(-50%, -50%); transition: transform 900ms cubic-bezier(.2,.9,.2,1), opacity 900ms; }
+.cursor-ripple { position: fixed; pointer-events:none; width: 18px; height: 18px; border-radius:50%; transform: translate(-50%,-50%) scale(1); background: radial-gradient(circle, rgba(79,140,255,0.16), rgba(79,140,255,0.02)); transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms; z-index:9998 }
+.cursor-pulse { position: fixed; width: 22px; height: 22px; border-radius:50%; pointer-events:none; background: radial-gradient(circle, rgba(79,140,255,0.12), rgba(79,140,255,0.02)); transform: translate(-50%,-50%) scale(0.6); transition: transform 700ms ease, opacity 700ms; z-index:9997 }
+
+.cursor-spotlight { position: fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; mix-blend-mode: overlay; background: radial-gradient(300px circle at var(--cx, 50%) var(--cy, 50%), rgba(255,255,255,0.06), rgba(255,255,255,0) 40%); display:none; z-index: 40 }
+
+/* Underline mode (for text hover) */
+.cursor-underline { position: absolute; height: 3px; width: 48px; background: linear-gradient(90deg, rgba(79,140,255,0.9), rgba(168,85,247,0.9)); border-radius: 4px; transform-origin: left center; transition: transform 140ms ease, opacity 200ms; pointer-events:none }
+
+/* Sidebar and shell */
+.glass { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); backdrop-filter: blur(10px) saturate(120%); border: 1px solid rgba(255,255,255,0.04); }
+.rounded-xlpanel { border-radius: 20px; }
+.sidebar { width: 260px }
+
+@media (max-width: 768px) {
+  .sidebar { display: none }
+}
+
+/* Employee hub specifics */
+.employee-hub .glass { overflow: hidden }
+.employee-hub canvas { border-radius: 12px }
+
+/* Manager console styles */
+.manager-heatmap td > div { min-width: 44px; text-align: center }
+.manager-skillmatrix .glass { transition: transform 0.18s ease }
+.team-builder .glass { min-height: 80px }
+
+/* Executive dashboard styles */
+.executive .glass { padding: 12px }
+.executive kpi { display:block }
+
+/* Touch and swipe helpers */
+.touch-pan-x { -webkit-overflow-scrolling: touch; touch-action: pan-x; overflow-scrolling: touch }
+
+/* Mobile bottom nav safe area */
+.mobile-bottom-spacer { height: 84px }
+
+
+
+
+
+
+
